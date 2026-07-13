@@ -25,23 +25,23 @@ function Register() {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Username</label>
-                    <input type="text" name="username" className="form-control" value={form.username} onChange={handleChange} required />
+                    <input type="text" name="username" className="form-control" placeholder="Enter username" value={form.username} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label>First Name</label>
-                    <input type="text" name="first_name" className="form-control" value={form.first_name} onChange={handleChange} required />
+                    <input type="text" name="first_name" className="form-control" placeholder="Enter first name" value={form.first_name} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label>Last Name</label>
-                    <input type="text" name="last_name" className="form-control" value={form.last_name} onChange={handleChange} required />
+                    <input type="text" name="last_name" className="form-control" placeholder="Enter last name" value={form.last_name} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label>Email</label>
-                    <input type="email" name="email" className="form-control" value={form.email} onChange={handleChange} required />
+                    <input type="email" name="email" className="form-control" placeholder="Enter email" value={form.email} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" className="form-control" value={form.password} onChange={handleChange} required />
+                    <input type="password" name="password" className="form-control" placeholder="Enter password" value={form.password} onChange={handleChange} required />
                 </div>
                 <button type="submit" className="btn btn-success">Register</button>
             </form>
