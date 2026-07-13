@@ -14,4 +14,5 @@ urlpatterns = [
     path('dealer/<int:dealer_id>/', dealer_detail, name='dealer_detail'),
     path('add_review/<int:dealer_id>/', add_review, name='add_review'),
     path('submit_review/', submit_review, name='submit_review'),
+    path('login/', LoginView.as_view(template_name='registration/login.html', redirect_authenticated_user=True), name='login'),
 ]
