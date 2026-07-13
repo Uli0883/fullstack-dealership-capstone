@@ -2,6 +2,11 @@
 
 {% block title %}About Us - Cars Dealership{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/bootstrap.min.css">
+{% endblock %}
+
 {% block content %}
 <div class="card-dealership">
     <h1 class="text-success">About Us</h1>
@@ -14,8 +19,9 @@
             <div class="card p-3 mb-3">
                 <img src="https://i.pravatar.cc/150?img=1" class="rounded-circle mx-auto d-block" alt="John Doe">
                 <h5>John Doe</h5>
-                <p class="text-muted">CEO</p>
+                <p class="text-muted">CEO & Founder</p>
                 <p><small>john.doe@carsdealership.com</small></p>
+                <p class="text-muted">25+ years in the automotive industry. Passionate about innovation and customer satisfaction.</p>
             </div>
         </div>
         <div class="col-md-4">
@@ -24,6 +30,7 @@
                 <h5>Jane Smith</h5>
                 <p class="text-muted">Sales Manager</p>
                 <p><small>jane.smith@carsdealership.com</small></p>
+                <p class="text-muted">Expert in helping customers find their dream car with a focus on transparency and trust.</p>
             </div>
         </div>
         <div class="col-md-4">
@@ -32,6 +39,7 @@
                 <h5>Mike Johnson</h5>
                 <p class="text-muted">Service Advisor</p>
                 <p><small>mike.johnson@carsdealership.com</small></p>
+                <p class="text-muted">Dedicated to providing top-notch after-sales service and maintenance advice.</p>
             </div>
         </div>
     </div>
