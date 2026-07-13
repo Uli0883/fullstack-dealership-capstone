@@ -1,13 +1,12 @@
-# from django.contrib import admin
-# from .models import related models
+from django.contrib import admin
+from .models import Dealer, DealerReview
 
+@admin.register(Dealer)
+class DealerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'city', 'state', 'zip')
+    search_fields = ('name', 'city', 'state')
 
-# Register your models here.
-
-# CarModelInline class
-
-# CarModelAdmin class
-
-# CarMakeAdmin class with CarModelInline
-
-# Register models here
+@admin.register(DealerReview)
+class DealerReviewAdmin(admin.ModelAdmin):
+    list_display = ('id', 'dealer', 'reviewer_name', 'rating', 'car_make', 'car_year')
+    list_filter = ('rating', 'dealer')

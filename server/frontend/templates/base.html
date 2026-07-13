@@ -4,85 +4,52 @@
     <title>{% block title %}Cars Dealership{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .navbar-brand {
-            font-weight: bold;
-            color: #28a745 !important;
-        }
-        .footer {
-            background-color: #343a40;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-            margin-top: 40px;
-        }
-        .container {
-            margin-top: 30px;
-        }
-        .card-dealership {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-            padding: 20px;
-            background-color: white;
-        }
-        .card-dealership:hover {
-            transform: scale(1.02);
-        }
-        .btn-custom {
-            background-color: #28a745;
-            color: white;
-            border-radius: 50px;
-            padding: 10px 25px;
-            font-weight: bold;
-        }
-        .btn-custom:hover {
-            background-color: #218838;
-            color: white;
-        }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .navbar-brand { font-weight: bold; color: #28a745 !important; }
+        .footer { background-color: #343a40; color: white; padding: 15px 0; text-align: center; margin-top: 40px; }
+        .container { margin-top: 30px; }
+        .card-dealership { border: none; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 20px; background-color: white; }
+        .btn-custom { background-color: #28a745; color: white; border-radius: 50px; padding: 10px 25px; font-weight: bold; }
+        .btn-custom:hover { background-color: #218838; color: white; }
     </style>
 </head>
 <body>
 
-   <!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="/">🚗 Cars Dealership</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="/about/">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/contact/' %}active{% endif %}" href="/contact/">Contact</a>
-                </li>
-                <!-- Login/Logout -->
-                {% if user.is_authenticated %}
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">🚗 Cars Dealership</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <span class="nav-link text-success">👤 {{ user.username }}</span>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link" href="/about/">About</a>
                     </li>
-                {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/login/?next=/">Login</a>
+                        <a class="nav-link" href="/contact/">Contact</a>
                     </li>
-                {% endif %}
-            </ul>
+
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <span class="nav-link text-success">👤 {{ user.username }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout/">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <!-- Contenido principal -->
     <div class="container">

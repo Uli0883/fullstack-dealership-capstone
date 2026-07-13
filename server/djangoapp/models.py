@@ -1,25 +1,26 @@
-# Uncomment the following imports before adding the Model code
+from django.db import models
 
-# from django.db import models
-# from django.utils.timezone import now
-# from django.core.validators import MaxValueValidator, MinValueValidator
+class Dealer(models.Model):
+    name = models.CharField(max_length=100)  # Cambiar de full_name a name
+    short_name = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    address = models.CharField(max_length=200)
+    zip = models.CharField(max_length=10)
+    lat = models.FloatField(null=True, blank=True)
+    long = models.FloatField(null=True, blank=True)
 
+    def __str__(self):
+        return self.name
 
-# Create your models here.
+class DealerReview(models.Model):
+    dealer = models.ForeignKey(Dealer, on_delete=models.CASCADE, related_name='reviews')
+    reviewer_name = models.CharField(max_length=100)
+    review_text = models.TextField()
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    car_make = models.CharField(max_length=50, blank=True, null=True)      # <-- opcional
+    car_year = models.IntegerField(blank=True, null=True)                  # <-- opcional
+    purchase_date = models.DateField(blank=True, null=True)                # <-- opcional
 
-# <HINT> Create a Car Make model `class CarMake(models.Model)`:
-# - Name
-# - Description
-# - Any other fields you would like to include in car make model
-# - __str__ method to print a car make object
-
-
-# <HINT> Create a Car Model model `class CarModel(models.Model):`:
-# - Many-To-One relationship to Car Make model (One Car Make has many
-# Car Models, using ForeignKey field)
-# - Name
-# - Type (CharField with a choices argument to provide limited choices
-# such as Sedan, SUV, WAGON, etc.)
-# - Year (IntegerField) with min value 2015 and max value 2023
-# - Any other fields you would like to include in car model
-# - __str__ method to print a car make object
+    def __str__(self):
+        return f"{self.reviewer_name} - {self.dealer.name}"

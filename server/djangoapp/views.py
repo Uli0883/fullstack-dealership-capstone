@@ -1,65 +1,35 @@
-# Uncomment the required imports before adding the code
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Dealer, DealerReview
+from datetime import datetime
 
-# from django.shortcuts import render
-# from django.http import HttpResponseRedirect, HttpResponse
-# from django.contrib.auth.models import User
-# from django.shortcuts import get_object_or_404, render, redirect
-# from django.contrib.auth import logout
-# from django.contrib import messages
-# from datetime import datetime
+def dealer_list(request):
+    dealers = Dealer.objects.all()
+    return render(request, 'dealer_list.html', {'dealers': dealers})
 
-from django.http import JsonResponse
-from django.contrib.auth import login, authenticate
-import logging
-import json
-from django.views.decorators.csrf import csrf_exempt
-# from .populate import initiate
+def dealer_detail(request, dealer_id):
+    dealer = get_object_or_404(Dealer, id=dealer_id)
+    return render(request, 'dealer_detail.html', {'dealer': dealer})
 
+def add_review(request, dealer_id):
+    dealer = get_object_or_404(Dealer, id=dealer_id)
+    return render(request, 'add_review.html', {'dealer_id': dealer_id})
 
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
+def submit_review(request):
+    if request.method == 'POST':
+        dealer_id = request.POST.get('dealer_id')
+        dealer = get_object_or_404(Dealer, id=dealer_id)
 
+        purchase_date_str = request.POST.get('purchase_date')
+        purchase_date = datetime.strptime(purchase_date_str, '%Y-%m-%d').date()
 
-# Create your views here.
-
-# Create a `login_request` view to handle sign in request
-@csrf_exempt
-def login_user(request):
-    # Get username and password from request.POST dictionary
-    data = json.loads(request.body)
-    username = data['userName']
-    password = data['password']
-    # Try to check if provide credential can be authenticated
-    user = authenticate(username=username, password=password)
-    data = {"userName": username}
-    if user is not None:
-        # If user is valid, call login method to login current user
-        login(request, user)
-        data = {"userName": username, "status": "Authenticated"}
-    return JsonResponse(data)
-
-# Create a `logout_request` view to handle sign out request
-# def logout_request(request):
-# ...
-
-# Create a `registration` view to handle sign up request
-# @csrf_exempt
-# def registration(request):
-# ...
-
-# # Update the `get_dealerships` view to render the index page with
-# a list of dealerships
-# def get_dealerships(request):
-# ...
-
-# Create a `get_dealer_reviews` view to render the reviews of a dealer
-# def get_dealer_reviews(request,dealer_id):
-# ...
-
-# Create a `get_dealer_details` view to render the dealer details
-# def get_dealer_details(request, dealer_id):
-# ...
-
-# Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+        DealerReview.objects.create(
+            dealer=dealer,
+            reviewer_name=request.POST.get('reviewer_name'),
+            review_text=request.POST.get('review_text'),
+            rating=int(request.POST.get('rating')),
+            car_make=request.POST.get('car_make'),
+            car_year=int(request.POST.get('car_year')),
+            purchase_date=purchase_date
+        )
+        return redirect('dealer_detail', dealer_id=dealer_id)
+    return redirect('dealer_list')

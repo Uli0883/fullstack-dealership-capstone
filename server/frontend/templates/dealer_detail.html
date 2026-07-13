@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Dealer Details{% endblock %}
+
+{% block content %}
+<div class="card-dealership">
+    <h1 class="text-success">{{ dealer.name }}</h1>
+    <p><strong>City:</strong> {{ dealer.city }}</p>
+    <p><strong>State:</strong> {{ dealer.state }}</p>
+    <p><strong>Address:</strong> {{ dealer.address }}</p>
+    <h3>Reviews</h3>
+    {% for review in dealer.reviews.all %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <p><strong>{{ review.reviewer_name }}</strong> ({{ review.rating }}/5)</p>
+                <p>{{ review.review_text }}</p>
+                <p><small>Car: {{ review.car_make }} {{ review.car_year }} - Purchased: {{ review.purchase_date }}</small></p>
+            </div>
+        </div>
+    {% empty %}
+        <p>No reviews yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
